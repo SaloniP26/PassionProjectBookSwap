@@ -1,0 +1,20 @@
+﻿
+﻿@model PassionProjectBookSwap.Models.BookDto
+
+
+@{
+    ViewBag.Title = "View";
+}
+
+<a href="/Book/List">Go back to list</a>
+<form action="/Book/Edit" method="get">
+    <h2>@Model.BookName</a></h2>
+    <div>Book Author: @Model.BookAuthor</div>
+    <div>Book Genre: @Model.BookGenre</div>
+    <div>Book Publish Date: @Model.BookPublishDate</div>
+    <div>Book Location: @Model.BookLocation</div>
+    <div>Book Caption: @Model.BookCaption</div>
+    <input type="hidden" value="@Model.BookID" name="id" />
+
+    <div><input type="submit" value="Edit" class="btn btn-primary" /></div>
+</form>

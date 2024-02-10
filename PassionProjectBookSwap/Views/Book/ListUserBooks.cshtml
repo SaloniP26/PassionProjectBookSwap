@@ -1,0 +1,21 @@
+﻿@model IEnumerable<PassionProjectBookSwap.Models.BookDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+@foreach (var book in Model)
+{
+    <h2><a href="/Book/Details/@book.BookID?UserID=@ViewBag.UserId">@book.BookName</a></h2>
+    <div>Book Author: @book.BookAuthor</div>
+    <div>Book Genre: @book.BookGenre</div>
+    <div>Book Publish Date: @book.BookPublishDate</div>
+    <div>Book Location: @book.BookLocation</div>
+    <div>Book Caption: @book.BookCaption</div>
+}
+
+@{
+    ViewBag.Title = "ListUserBooks";
+}
+
+
