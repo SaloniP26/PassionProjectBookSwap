@@ -184,6 +184,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\BookDataController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
+    <Compile Include="Controllers\GenreDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewUserDataController.cs" />
@@ -198,9 +200,30 @@
     <Compile Include="Migrations\202402092003597_second.designer.cs">
       <DependentUpon>202402092003597_second.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402231150420_third.cs" />
+    <Compile Include="Migrations\202402231150420_third.designer.cs">
+      <DependentUpon>202402231150420_third.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402231207158_fourth.cs" />
+    <Compile Include="Migrations\202402231207158_fourth.designer.cs">
+      <DependentUpon>202402231207158_fourth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402231332168_sixth.cs" />
+    <Compile Include="Migrations\202402231332168_sixth.designer.cs">
+      <DependentUpon>202402231332168_sixth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402232020393_seventh.cs" />
+    <Compile Include="Migrations\202402232020393_seventh.designer.cs">
+      <DependentUpon>202402232020393_seventh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402240234517_eight.cs" />
+    <Compile Include="Migrations\202402240234517_eight.designer.cs">
+      <DependentUpon>202402240234517_eight.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewUser.cs" />
@@ -286,6 +309,9 @@
     <Content Include="Views\Book\Error.cshtml" />
     <Content Include="Views\Book\New.cshtml" />
     <Content Include="Views\Book\ListUserBooks.cshtml" />
+    <Content Include="Views\Book\Delete.cshtml" />
+    <Content Include="Views\Genre\List.cshtml" />
+    <Content Include="Views\Genre\BooksForGenre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -323,6 +349,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402092003597_second.resx">
       <DependentUpon>202402092003597_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402231150420_third.resx">
+      <DependentUpon>202402231150420_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402231207158_fourth.resx">
+      <DependentUpon>202402231207158_fourth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402231332168_sixth.resx">
+      <DependentUpon>202402231332168_sixth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402232020393_seventh.resx">
+      <DependentUpon>202402232020393_seventh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402240234517_eight.resx">
+      <DependentUpon>202402240234517_eight.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,15 +1,42 @@
-﻿@model IEnumerable<PassionProjectBookSwap.Models.BookDto>
+﻿@*@model IEnumerable<PassionProjectBookSwap.Models.BookDto>
+    @{
+        ViewBag.Title = "List";
+    }
+
+    <h2>List</h2>
+    @foreach (var book in Model)
+    {
+        <h2><a href="/Book/Details/@book.BookID">@book.BookName</a></h2>
+        <div>Book Author: @book.BookAuthor</div>
+        <div>Book Genre: @book.BookGenre</div>
+        <div>Book Publish Date: @book.BookPublishDate</div>
+        <div>Book Location: @book.BookLocation</div>
+        <div>Book Caption: @book.BookCaption</div>
+    }*@
+
+@model IEnumerable<PassionProjectBookSwap.Models.BookDto>
 @{
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-@foreach (var book in Model)
-{
-    <h2><a href="/Book/Details/@book.BookID">@book.BookName</a></h2>
-    <div>Book Author: @book.BookAuthor</div>
-    <div>Book Genre: @book.BookGenre</div>
-    <div>Book Publish Date: @book.BookPublishDate</div>
-    <div>Book Location: @book.BookLocation</div>
-    <div>Book Caption: @book.BookCaption</div>
-}
+
+<a href="@Url.Action("New", "Book")" class="btn btn-primary">Add Book</a>
+<div class="container">
+    <h2>List</h2> 
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/Book/Details/@book.BookID">@book.BookName</a></h5>
+                        <p class="card-text">Book Author: @book.BookAuthor</p>
+                        <p class="card-text">Book Publish Date: @book.BookPublishDate</p>
+                        <p class="card-text">Book Location: @book.BookLocation</p>
+                        <p class="card-text">Book Caption: @book.BookCaption</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

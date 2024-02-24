@@ -15,6 +15,7 @@ namespace PassionProjectBookSwap.Controllers
     {
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         static BookController()
         {
@@ -50,7 +51,7 @@ namespace PassionProjectBookSwap.Controllers
         public ActionResult ListUserBooks(int userId)
         {
             // Retrieve the user ID
-           
+
             ViewBag.UserId = userId;
             Debug.WriteLine(userId);
             //GET {resource}/api/bookdata/listbooks
@@ -82,7 +83,7 @@ namespace PassionProjectBookSwap.Controllers
 
             BookDto selectedbook = response.Content.ReadAsAsync<BookDto>().Result;
             Debug.WriteLine("book received : ");
-            
+
 
 
             return View(selectedbook);
@@ -97,6 +98,11 @@ namespace PassionProjectBookSwap.Controllers
         // GET: Book/New
         public ActionResult New()
         {
+            // Retrieve list of genres from your data source
+            List<Genre> genres = db.Genres.ToList();
+
+            // Pass the list of genres to the view
+            ViewBag.Genres = genres;
             return View();
         }
 
@@ -156,9 +162,11 @@ namespace PassionProjectBookSwap.Controllers
         {
             try
             {
-                Debug.WriteLine("The new book info is:");
                 Debug.WriteLine(book.BookName);
+                Debug.WriteLine("The new book info is:");
+           
                 Debug.WriteLine(book.BookAuthor);
+                Debug.WriteLine(book.GenreID);
 
                 //serialize into JSON
                 //Send the request to the API
@@ -188,12 +196,64 @@ namespace PassionProjectBookSwap.Controllers
         }
 
         // GET: Book/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, string BookName)
         {
+            ViewBag.id = id;
+            ViewBag.BookName = BookName;
+
             return View();
         }
 
+        // GET: Book/Delete/5
+        public ActionResult ConfirmDelete(int id)
+        {
+            Debug.WriteLine("---- " + id);
+            // call api
+
+
+            // Call the API to confirm the delete action
+            string url = "deletebook/" + id;
+
+
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine("Book deleted successfully.");
+            }
+            else
+            {
+                Debug.WriteLine("Failed to delete the book.");
+            }
+
+            return RedirectToAction("List");
+        }
+
+        public ActionResult BooksForGenre(int id)
+        {
+            // Retrieve books for the specified genre ID
+            string url = "https://localhost:44366/api/genredata/booksforgenre/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<BookDto> books = response.Content.ReadAsAsync<IEnumerable<BookDto>>().Result;
+                ViewBag.GenreId = id;
+                return View(books);
+            }
+            else
+            {
+                // Handle error response
+                Debug.WriteLine("Failed to retrieve books for genre with ID: " + id);
+                return RedirectToAction("Error");
+            }
+        }
 
     }
+
+
 }
+
 

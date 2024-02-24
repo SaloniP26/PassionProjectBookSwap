@@ -13,7 +13,6 @@ namespace PassionProjectBookSwap.Models
         public int BookID { get; set; }
         public string BookName { get; set; }
         public string BookAuthor { get; set; }
-        public string BookGenre { get; set; }
         public DateTime BookPublishDate { get; set; }
         public string BookLocation { get; set; }
         public string BookCaption { get; set; }
@@ -27,6 +26,13 @@ namespace PassionProjectBookSwap.Models
 
         public virtual NewUser NewUsers { get; set; }
 
+        //
+
+        [ForeignKey("Genre")]
+        public int GenreID { get; set; }
+        
+        public virtual Genre Genre { get; set; }
+
 
 
     }
@@ -38,12 +44,13 @@ namespace PassionProjectBookSwap.Models
         public string BookName { get; set; }
 
         public string BookAuthor { get; set; }
-        public string BookGenre { get; set; }
         public DateTime BookPublishDate { get; set; }
         public string BookLocation { get; set; }
         public string BookCaption { get; set; }
 
         public int UserID { get; set; }
+
+        public int GenreID { get; set;}
 
     }
 }

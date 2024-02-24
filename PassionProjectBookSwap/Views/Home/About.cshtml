@@ -1,9 +1,22 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+<div class="container">
+    <h2>About BookSwap</h2>
+    <p>BookSwap is an innovative platform designed for book enthusiasts to exchange physical books with each other. Whether you're looking to discover new titles or share your favorite reads, BookSwap provides a seamless and user-friendly experience.</p>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+    <h3>How to Use BookSwap</h3>
+    <ol>
+        <li><strong>Sign Up:</strong> Create an account on BookSwap.</li>
+        <li><strong>Complete Profile:</strong> Fill out your profile information.</li>
+        <li><strong>Add Books:</strong> Add books to your virtual bookshelf.</li>
+        <li><strong>Explore Books:</strong> Search and explore books available on BookSwap.</li>
+        <li><strong>Initiate Exchanges:</strong> Initiate book exchanges with other users.</li>
+        <li><strong>Manage Your Bookshelf:</strong> Keep your bookshelf organized and updated.</li>
+        <li><strong>Leave Reviews:</strong> Leave reviews and ratings for books you've exchanged.</li>
+        <li><strong>Stay Active:</strong> Stay engaged with BookSwap to discover new books and connect with other users.</li>
+        <li><strong>Enjoy Reading:</strong> Sit back, relax, and enjoy the joy of reading!</li>
+    </ol>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+</div>

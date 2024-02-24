@@ -46,7 +46,6 @@ namespace PassionProjectBookSwap.Controllers
                 BookID = b.BookID,
                 BookName = b.BookName,
                 BookAuthor = b.BookAuthor,
-                BookGenre = b.BookGenre,
                 BookPublishDate = b.BookPublishDate,
                 BookLocation = b.BookLocation,
                 BookCaption = b.BookCaption
@@ -72,7 +71,6 @@ namespace PassionProjectBookSwap.Controllers
                 BookID = b.BookID,
                 BookName = b.BookName,
                 BookAuthor = b.BookAuthor,
-                BookGenre = b.BookGenre,
                 BookPublishDate = b.BookPublishDate,
                 BookLocation = b.BookLocation,
                 BookCaption = b.BookCaption
@@ -108,7 +106,6 @@ namespace PassionProjectBookSwap.Controllers
                 BookID = Book.BookID,
                 BookName = Book.BookName,
                 BookAuthor = Book.BookAuthor,
-                BookGenre = Book.BookGenre,
                 BookPublishDate = Book.BookPublishDate,
                 BookLocation = Book.BookLocation,
                 BookCaption = Book.BookCaption,
@@ -182,6 +179,7 @@ namespace PassionProjectBookSwap.Controllers
         [HttpPost]
         public IHttpActionResult UpdateBook(int id, Book book)
         {
+            Debug.WriteLine("---" + book.BookName);
             Debug.WriteLine("I have reached the update book method!");
             if (!ModelState.IsValid)
             {

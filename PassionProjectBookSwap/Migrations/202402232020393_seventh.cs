@@ -1,0 +1,18 @@
+﻿namespace PassionProjectBookSwap.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class seventh : DbMigration
+    {
+        public override void Up()
+        {
+            DropColumn("dbo.Books", "BookGenre");
+        }
+        
+        public override void Down()
+        {
+            AddColumn("dbo.Books", "BookGenre", c => c.String());
+        }
+    }
+}

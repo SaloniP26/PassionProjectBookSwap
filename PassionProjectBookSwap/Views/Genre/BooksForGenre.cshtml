@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PassionProjectBookSwap.Models.Book>
+
+@{
+    ViewBag.Title = "Books for Genre";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"><a href="@Url.Action("List", "Genre")" class="btn btn-primary">Back</a></div>
+        <div class="col-md-3"><a href="@Url.Action("New", "Book")" class="btn btn-primary">Add New Book</a></div>
+        <p></p>
+     </div>
+</div>
+    <div class="container">
+        <h2>Books for Genre</h2>
+
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/Book/Details/@book.BookID">@book.BookName</a></h5>
+                            <p class="card-text">Author: @book.BookAuthor</p>
+                            <p class="card-text">Published Date: @book.BookPublishDate</p>
+                            <p class="card-text">Location: @book.BookLocation</p>
+                            <p class="card-text">Caption: @book.BookCaption</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

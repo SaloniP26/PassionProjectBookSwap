@@ -33,6 +33,9 @@ namespace PassionProjectBookSwap.Models
 
         public DbSet<NewUser> NewUsers { get; set; }
 
+        //We are setting the genre model as a db table.
+        public DbSet<Genre> Genres { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
