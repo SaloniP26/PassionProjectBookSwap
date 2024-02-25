@@ -1,13 +1,17 @@
-﻿﻿@model PassionProjectBookSwap.Models.BookDto
+﻿﻿﻿@model PassionProjectBookSwap.Models.BookDto
 
 @{
     ViewBag.Title = "Create";
+    var UserID = ViewBag.UserID;
 }
+
 
 <div class="col-md-2"><a href="@Url.Action("List", "Genre")" class="btn btn-primary">Back</a></div>
 <p></p>
 <h2>Add Book</h2>
 <form action="/Book/Create" method="POST">
+    <input type="hidden" name="UserID" value="@UserID" />
+   
     <div>
         <label>Book Name:</label> <input type="text" name="BookName" />
     </div>
@@ -18,7 +22,7 @@
     <p></p>
     <div>
         <label>Book Genre:</label>
-        <select name="BookGenre">
+        <select name="GenreID">
             @foreach (var genre in ViewBag.Genres)
             {
                 <option value="@genre.GenreID">@genre.GenreName</option>

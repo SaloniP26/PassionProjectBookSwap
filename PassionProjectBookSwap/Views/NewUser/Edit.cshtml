@@ -1,0 +1,48 @@
+﻿﻿@model PassionProjectBookSwap.Models.NewUserDto
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<a href="@Url.Action("List", "NewUser")" class="btn btn-primary">Back to Home</a>
+<p></p>
+<h2>Edit User</h2>
+<form method="POST" action="/NewUser/Update">
+
+    <input type="hidden" value="@Model.UserID" name="id" />
+
+    <div>
+        <label>First Name</label>
+        <input type="text" name="FirstName" value="@Model.FirstName" />
+    </div>
+    <div>
+        <label>Last Name</label>
+        <input type="text" name="LastName" value="@Model.LastName" />
+    </div>
+    @*<div>
+            <label>Book Genre</label>
+            <input type="text" name="BookGenre" value="@Model.BookGenre" />
+        </div>*@
+    <div>
+        <label>Email Id</label>
+        <input type="text" name="EmailID" value="@Model.EmailID" />
+    </div>
+    <div>
+        <label>Phone</label>
+        <input type="text" name="Phone" value="@Model.Phone" />
+    </div>
+    <div>
+        <label>Username</label>
+        <input type="text" name="UserName" value="@Model.UserName" />
+    </div>
+    <p></p>
+    <div>
+        <input type="submit" class="btn btn-primary" value="Update" />
+    </div>
+</form>
+
+<form method="POST" action="/NewUser/Delete/@Model.UserID">
+
+    <input type="hidden" value="@Model.UserID" name="UserID" />
+
+</form>

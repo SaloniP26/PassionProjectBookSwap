@@ -63,5 +63,29 @@ namespace PassionProjectBookSwap.Controllers
             return View(booksForGenre);
         }
 
+        // GET: Genre/Add
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        // POST: Genre/Create
+        [HttpPost]
+        public ActionResult Create(Genre genre)
+        {
+            // Validate the model
+            if (!ModelState.IsValid)
+            {
+                return View(genre);
+            }
+
+            // Add the new genre to the database
+            db.Genres.Add(genre);
+            db.SaveChanges();
+
+            return RedirectToAction("List");
+        }
+
+
     }
 }

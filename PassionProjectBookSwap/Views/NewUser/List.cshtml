@@ -1,0 +1,55 @@
+﻿@model List<PassionProjectBookSwap.Models.NewUserDto>
+
+@{
+    ViewBag.Title = "List of New Users";
+}
+
+<h2>List of New Users</h2>
+
+<div>
+    <a href="@Url.Action("New", "NewUser")" class="btn btn-primary">Add User</a>
+</div>
+<p></p>
+<div>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email ID</th>
+            <th>Phone</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserID</td>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.EmailID</td>
+                <td>@user.Phone</td>
+                <td>@user.UserName</td>
+                <td>@user.Password</td>
+                <td>
+                    <a href="@Url.Action("Edit", "NewUser", new { id = user.UserID })">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "NewUser", new { id = user.UserID })">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

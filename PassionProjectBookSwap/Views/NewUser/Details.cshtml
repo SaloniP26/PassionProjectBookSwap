@@ -1,0 +1,47 @@
+﻿﻿@model PassionProjectBookSwap.Models.NewUserDto
+
+
+@{
+    ViewBag.Title = "View";
+}
+
+<style>
+    .button-container {
+        display: inline-block;
+    }
+
+    .delete-button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 7px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+
+<a href="@Url.Action("List", "NewUser")" class="btn btn-primary">Back to Home</a>
+<p></p>
+<form action="/NewUser/Edit" method="get">
+    <h2>First Name: @Model.FirstName</h2>
+    <div>Last Name: @Model.LastName</div>
+    <div>Email Id: @Model.EmailID</div>
+    <div>Phone: @Model.Phone</div>
+    <div>Username: @Model.UserName</div>
+    <div>Password: @Model.Password</div>
+    <input type="hidden" value="@Model.UserID" name="id" />
+    <p></p>
+    <div class="button-container"><input type="submit" value="Edit" class="btn btn-primary" /></div>
+    @*<div class="button-container">
+            <input type="submit" value="Delete" class="delete-button" />
+        </div>*@
+</form>
+<form action="@Url.Action("Delete", "NewUser")" method="post">
+    <input type="hidden" name="id" value="@Model.UserID" />
+    <input type="submit" value="Delete" class="delete-button" />
+</form>

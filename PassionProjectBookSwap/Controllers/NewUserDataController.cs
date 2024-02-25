@@ -18,24 +18,24 @@ namespace PassionProjectBookSwap.Controllers
         //utilizing the database connection
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //This Controller Will access the NewUsers table of our passion project database. Non-Deterministic.
+        //This Controller Will access the users table of our passion project database. Non-Deterministic.
         /// <summary>
-        /// Returns a list of NewUsers in the system
+        /// Returns a list of users in the system
         /// </summary>
         /// <returns>
-        /// A list of NewUsers Objects with fields mapped to the database column values (first name, last name, email id, phone, username & password).
+        /// A list of users Objects with fields mapped to the database column values (user first name, user last name, user email, user phone, user's username and user's password).
         /// </returns>
-        /// <example>GET api/NewUserData/ListNewUsers -> {NewUsers Object, NewUsers Object, NewUsers Object...}</example>
+        /// <example>GET api/BookData/ListNewUsers -> {User Object, User Object, User Object...}</example>
 
-        //ListNewUsers
+        //ListUser
 
         [HttpGet]
         [Route("api/NewUserData/ListNewUsers")]
         public List<NewUserDto> ListNewUsers()
         {
             //sending a query to the database
-            //select * from neusers...
-            List<NewUser> NewUsers  = db.NewUsers.ToList();
+            //select * from users...
+            List<NewUser> NewUsers = db.NewUsers.ToList();
 
             List<NewUserDto> NewUserDtos = new List<NewUserDto>();
 
@@ -51,22 +51,44 @@ namespace PassionProjectBookSwap.Controllers
                 UserName = b.UserName,
                 Password = b.Password
             }
-            )); 
+            ));
 
-            //push the results to the list of newuserss to return
+
+            //push the results to the list of users to return
 
             return NewUserDtos;
         }
 
+        // GET: api/newuserdata/listnewusers/{userId}
+        [HttpGet]
+        [Route("api/newuserdata/listnewusers/{userId}")]
+        public IHttpActionResult ListNewUserByUser(int userId)
+        {
+            // Filter newusers based on the provided user ID
+            List<NewUser> newusers = db.NewUsers.Where(b => b.UserID == userId).ToList();
+
+            List<NewUserDto> newuserDtos = newusers.Select(b => new NewUserDto
+            {
+                UserID = b.UserID,
+                FirstName = b.FirstName,
+                LastName = b.LastName,
+                EmailID = b.EmailID,
+                Phone = b.Phone,
+                UserName = b.UserName,
+                Password = b.Password
+            }).ToList();
+
+            return Ok(newuserDtos);
+        }
+
 
         /// <summary>
-        /// Finds an NewUser from the Database through an id. Non-Deterministic.
+        /// Finds an User from the Database through an id. Non-Deterministic.
         /// </summary>
         /// <param name="id">The User ID</param>
-        /// <returns>Book object containing information about the NewUser with a matching ID. Empty NewUser Object if the ID does not match any NewUser in the system.</returns>
-        /// <example>api/NewUserData/FindNewUser/5 -> {NewUser Object}</example>
-        /// <example>api/NewUserData/FindNewUser/5 -> {NewUser Object}</example>
-
+        /// <returns>User object containing information about the User with a matching ID. Empty User Object if the ID does not match any User in the system.</returns>
+        /// <example>api/NewUserData/FindNewUser/6 -> {NewUser Object}</example>
+        /// <example>api/NewUserData/FindBook/10 -> {NewUser Object}</example>
 
         //FindNewUser
 
@@ -90,26 +112,26 @@ namespace PassionProjectBookSwap.Controllers
                 Phone = NewUser.Phone,
                 UserName = NewUser.UserName,
                 Password = NewUser.Password
+
             };
 
             return Ok(NewUserDto);
         }
 
-
         /// <summary>
-        /// Adds an NewUser to the Database. Non-Deterministic.
+        /// Adds an Newuser to the Database. Non-Deterministic.
         /// </summary>
-        /// <param name="NewUser">An object with fields that map to the columns of the NewUser's table. </param>
+        /// <param name="newuser">An object with fields that map to the columns of the NewUser's table. </param>
         /// <example>
         /// POST api/NewUserData/AddNewUser
         /// FORM DATA / POST DATA / REQUEST BODY 
         /// {
         ///	"FirstName": "Saloni",
         ///"LastName": "Pawar",
-        ///"EmailID": "salonip@gmail.com",
-        ///"Phone": "8765537",
-        ///"UserName": "SaloniP",
-        ///"Password": "Test@123",
+        ///"EmailId": "saloni@gmail.com",
+        ///"Phone": "4125614236",
+        ///"Username": "test",
+        ///"Password": "test@123",
         ///"UserID": 1
         /// }
         /// </example>
@@ -117,10 +139,16 @@ namespace PassionProjectBookSwap.Controllers
         //AddNewUser
 
         // POST: api/NewUserData/AddNewUser
-        [ResponseType(typeof(NewUser))]
+
+
         [HttpPost]
         public IHttpActionResult AddNewUser(NewUser newuser)
         {
+            Debug.WriteLine("in add book api");
+
+            Debug.WriteLine(newuser.FirstName + "in api");
+
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -129,8 +157,9 @@ namespace PassionProjectBookSwap.Controllers
             db.NewUsers.Add(newuser);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = newuser.UserID }, newuser);
+            return Ok();
         }
+
 
         /// <summary>
         /// Updates an NewUser on the Database. Non-Deterministic.
@@ -142,13 +171,14 @@ namespace PassionProjectBookSwap.Controllers
         /// {
         ///	"FirstName": "Saloni",
         ///"LastName": "Pawar",
-        ///"EmailID": "salonip@gmail.com",
-        ///"Phone": "8765537",
-        ///"UserName": "SaloniP",
-        ///"Password": "Test@123",
+        ///"EmailId": "saloni@gmail.com",
+        ///"Phone": "4125614236",
+        ///"Username": "test",
+        ///"Password": "test@123",
         ///"UserID": 1
         /// }
         /// </example>
+
 
         //UpdateNewUser
 
@@ -157,6 +187,8 @@ namespace PassionProjectBookSwap.Controllers
         [HttpPost]
         public IHttpActionResult UpdateNewUser(int id, NewUser newuser)
         {
+
+            Debug.WriteLine("--7777777777777777777777777777777-" + newuser.FirstName);
             Debug.WriteLine("I have reached the update newuser method!");
             if (!ModelState.IsValid)
             {
@@ -164,14 +196,7 @@ namespace PassionProjectBookSwap.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != newuser.UserID)
-            {
-                Debug.WriteLine("ID mismatch");
-                Debug.WriteLine("GET parameter" + id);
-                Debug.WriteLine("POST parameter" + newuser.UserID);
-                Debug.WriteLine("POST parameter" + newuser.FirstName);
-                return BadRequest();
-            }
+
 
             db.Entry(newuser).State = EntityState.Modified;
 
@@ -183,7 +208,7 @@ namespace PassionProjectBookSwap.Controllers
             {
                 if (!NewUserExists(id))
                 {
-                    Debug.WriteLine("NewUser not found");
+                    Debug.WriteLine("User not found");
                     return NotFound();
                 }
                 else
@@ -196,15 +221,16 @@ namespace PassionProjectBookSwap.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
         /// <summary>
         /// Deletes an NewUser from the connected Database if the ID of that NewUser exists. Does NOT maintain relational integrity. Non-Deterministic.
         /// </summary>
         /// <param name="id">The ID of the NewUser.</param>
-        /// <example>POST /api/NewUserData/DeleteNewUser/5</example>
+        /// <example>POST /api/NewUserData/DeleteNewUser/3</example>
 
         //DeleteNewUser
 
-        // POST: api/NewUserData/DeleteNewUser/5
+        // POST: api/NewUserDataData/DeleteNewUserData/5
         [ResponseType(typeof(NewUser))]
         [HttpPost]
         public IHttpActionResult DeleteNewUser(int id)
@@ -221,17 +247,13 @@ namespace PassionProjectBookSwap.Controllers
             return Ok();
         }
 
-        // List books based on userId
-
-       // db.Books.Where( u => u.UserID == id)
-
         //Related Methods included:
 
-        //ListNewUsersForGenre
+        //ListBooksForGenre
 
-        //AddNewUserToGenre
+        //AddBookToGenre
 
-        //RemoveNewUserFromGenre
+        //RemoveBookFromGenre
 
         protected override void Dispose(bool disposing)
         {

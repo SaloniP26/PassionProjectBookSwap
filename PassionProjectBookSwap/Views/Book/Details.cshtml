@@ -29,7 +29,7 @@
 <a href="@Url.Action("List", "Genre")" class="btn btn-primary">Back to Home</a>
 <p></p>
 <form action="/Book/Edit" method="get">
-    <h2>@Model.BookName</a></h2>
+    <h2>Book Name: @Model.BookName</h2>
     <div>Book Author: @Model.BookAuthor</div>
     <div>Book Publish Date: @Model.BookPublishDate</div>
     <div>Book Location: @Model.BookLocation</div>
@@ -37,7 +37,11 @@
     <input type="hidden" value="@Model.BookID" name="id" />
     <p></p>
     <div class="button-container"><input type="submit" value="Edit" class="btn btn-primary" /></div>
-    <div class="button-container">
+    @*<div class="button-container">
         <input type="submit" value="Delete" class="delete-button" />
-    </div>
+    </div>*@
+</form>
+<form action="@Url.Action("Delete", "Book")" method="post">
+    <input type="hidden" name="id" value="@Model.BookID" />
+    <input type="submit" value="Delete" class="delete-button" />
 </form>

@@ -14,12 +14,26 @@
                         BookID = c.Int(nullable: false, identity: true),
                         BookName = c.String(),
                         BookAuthor = c.String(),
-                        BookGenre = c.String(),
                         BookPublishDate = c.DateTime(nullable: false),
                         BookLocation = c.String(),
                         BookCaption = c.String(),
+                        UserID = c.Int(nullable: false),
+                        GenreID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.BookID);
+                .PrimaryKey(t => t.BookID)
+                .ForeignKey("dbo.Genres", t => t.GenreID, cascadeDelete: true)
+                .ForeignKey("dbo.NewUsers", t => t.UserID, cascadeDelete: true)
+                .Index(t => t.UserID)
+                .Index(t => t.GenreID);
+            
+            CreateTable(
+                "dbo.Genres",
+                c => new
+                    {
+                        GenreID = c.Int(nullable: false, identity: true),
+                        GenreName = c.String(),
+                    })
+                .PrimaryKey(t => t.GenreID);
             
             CreateTable(
                 "dbo.NewUsers",
@@ -111,18 +125,23 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Books", "UserID", "dbo.NewUsers");
+            DropForeignKey("dbo.Books", "GenreID", "dbo.Genres");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Books", new[] { "GenreID" });
+            DropIndex("dbo.Books", new[] { "UserID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.NewUsers");
+            DropTable("dbo.Genres");
             DropTable("dbo.Books");
         }
     }

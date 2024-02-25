@@ -78,13 +78,14 @@ namespace PassionProjectBookSwap.Controllers
             string url = "findbook/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Debug.WriteLine("The response code is ");
-            Debug.WriteLine(response.StatusCode);
+           // Debug.WriteLine("The response code is ");
+            // Debug.WriteLine(response.StatusCode);
 
             BookDto selectedbook = response.Content.ReadAsAsync<BookDto>().Result;
-            Debug.WriteLine("book received : ");
+            // Debug.WriteLine("book received : ");
 
 
+            Debug.WriteLine("----" + selectedbook.GenreID);
 
             return View(selectedbook);
         }
@@ -96,13 +97,15 @@ namespace PassionProjectBookSwap.Controllers
         }
 
         // GET: Book/New
-        public ActionResult New()
+        public ActionResult New(int UserID)
         {
             // Retrieve list of genres from your data source
             List<Genre> genres = db.Genres.ToList();
 
             // Pass the list of genres to the view
             ViewBag.Genres = genres;
+            ViewBag.UserID = UserID;
+
             return View();
         }
 
@@ -110,7 +113,7 @@ namespace PassionProjectBookSwap.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            Debug.WriteLine("the json payload is :");
+           // Debug.WriteLine("the json payload is :");
             //Debug.WriteLine(book.BookName);
             //objective: add a new book into our system using the API
             //curl -H "Content-Type:application/json" -d @book.json https://localhost:44324/api/bookdata/addbook
@@ -120,6 +123,7 @@ namespace PassionProjectBookSwap.Controllers
             string jsonpayload = jss.Serialize(book);
 
             Debug.WriteLine(jsonpayload);
+            Debug.WriteLine("---" + book.GenreID);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
@@ -131,6 +135,8 @@ namespace PassionProjectBookSwap.Controllers
             }
             else
             {
+                Debug.WriteLine("---");
+
                 return RedirectToAction("Error");
             }
 
@@ -160,22 +166,26 @@ namespace PassionProjectBookSwap.Controllers
         [HttpPost]
         public ActionResult Update(int id, Book book)
         {
-            try
-            {
+            
+                //Debug.WriteLine("Genre ID received: " + genreId);
                 Debug.WriteLine(book.BookName);
-                Debug.WriteLine("The new book info is:");
-           
+                Debug.WriteLine("The new book info is-----------------------------:");
+
                 Debug.WriteLine(book.BookAuthor);
-                Debug.WriteLine(book.GenreID);
+                //Debug.WriteLine(genreId);
+
+                //book.GenreID = genreId;
 
                 //serialize into JSON
                 //Send the request to the API
 
-                string url = "UpdateBook/" + id;
-
+                string url = "updatebook/" + id;
 
                 string jsonpayload = jss.Serialize(book);
                 Debug.WriteLine(jsonpayload);
+
+                
+
 
                 HttpContent content = new StringContent(jsonpayload);
                 content.Headers.ContentType.MediaType = "application/json";
@@ -184,15 +194,20 @@ namespace PassionProjectBookSwap.Controllers
                 //Header : Content-Type: application/json
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-
-
+                if (response.IsSuccessStatusCode)
+                {
+                Debug.WriteLine("okay-:");
 
                 return RedirectToAction("Details/" + id);
-            }
-            catch
-            {
-                return View();
-            }
+                }
+                else
+                {
+                Debug.WriteLine("not okay-:");
+
+                return RedirectToAction("Details/" + id);
+                }
+            
+           
         }
 
         // GET: Book/Delete/5

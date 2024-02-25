@@ -28,10 +28,10 @@ namespace PassionProjectBookSwap.Models
 
         //
 
-        [ForeignKey("Genre")]
+        [ForeignKey("Genres")]
         public int GenreID { get; set; }
         
-        public virtual Genre Genre { get; set; }
+        public virtual Genre Genres { get; set; }
 
 
 

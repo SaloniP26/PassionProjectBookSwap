@@ -109,7 +109,8 @@ namespace PassionProjectBookSwap.Controllers
                 BookPublishDate = Book.BookPublishDate,
                 BookLocation = Book.BookLocation,
                 BookCaption = Book.BookCaption,
-                UserID = Book.UserID
+                UserID = Book.UserID,
+                GenreID = Book.GenreID
                 
             };
             
@@ -137,10 +138,15 @@ namespace PassionProjectBookSwap.Controllers
         //AddBook
 
         // POST: api/BookData/AddBook
-        [ResponseType(typeof(Book))]
+      
+
         [HttpPost]
         public IHttpActionResult AddBook(Book book)
         {
+            Debug.WriteLine( "in add book api");
+
+            Debug.WriteLine(book.BookName + "in api");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -149,7 +155,7 @@ namespace PassionProjectBookSwap.Controllers
             db.Books.Add(book);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = book.BookID }, book);
+            return Ok();
         }
 
 
@@ -179,7 +185,8 @@ namespace PassionProjectBookSwap.Controllers
         [HttpPost]
         public IHttpActionResult UpdateBook(int id, Book book)
         {
-            Debug.WriteLine("---" + book.BookName);
+
+            Debug.WriteLine("--7777777777777777777777777777777-" + book.BookName);
             Debug.WriteLine("I have reached the update book method!");
             if (!ModelState.IsValid)
             {
@@ -187,14 +194,7 @@ namespace PassionProjectBookSwap.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != book.BookID)
-            {
-                Debug.WriteLine("ID mismatch");
-                Debug.WriteLine("GET parameter" + id);
-                Debug.WriteLine("POST parameter" + book.BookID);
-                Debug.WriteLine("POST parameter" + book.BookName);
-                return BadRequest();
-            }
+
 
             db.Entry(book).State = EntityState.Modified;
 

@@ -7,12 +7,11 @@
 <a href="@Url.Action("List", "Book")" class="btn btn-primary">Back to Home</a>
 <p></p>
 <h2>Edit Book</h2>
-<form method="POST" action="/Book/Update/@Model.BookID">
+<form method="POST" action="/Book/Update">
     <input type="hidden" value="@Model.BookID" name="id" />
-    <input type="hidden" value="@Model.GenreID" name="GenreID" />
+    <input type="hidden" value="@Model.GenreID" name="genreId" />
 
     <input type="hidden" value="@Model.UserID" name="UserID" />
-
 
     <input type="text" style="display:none;" name="BookId" value="@Model.BookID" />
     <div>

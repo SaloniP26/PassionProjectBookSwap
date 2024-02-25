@@ -5,6 +5,10 @@
 
 <div class="container">
     <h2>List of Genres</h2>
+    <div>
+        <a href="@Url.Action("Add", "Genre")" class="btn btn-primary">Add Genre</a>
+    </div>
+    <p></p>
     <div class="row">
         @foreach (var genre in Model)
         {

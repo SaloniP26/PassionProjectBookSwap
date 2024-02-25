@@ -1,0 +1,52 @@
+﻿﻿﻿@model PassionProjectBookSwap.Models.NewUserDto
+
+@{
+    ViewBag.Title = "Create";
+    var UserID = ViewBag.UserID;
+}
+
+
+<div class="col-md-2"><a href="@Url.Action("List", "NewUser")" class="btn btn-primary">Back</a></div>
+<p></p>
+<h2>Add New User</h2>
+<form action="/NewUser/Create" method="POST">
+    <input type="hidden" name="UserID" value="@UserID" />
+
+    <div>
+        <label>First Name:</label> <input type="text" name="FirstName" />
+    </div>
+    <p></p>
+    <div>
+        <label>Last Name:</label> <input type="text" name="LastName" />
+    </div>
+    <p></p>
+    @*<div>
+            <label>Book Genre:</label>
+            <select name="GenreID">
+                @foreach (var genre in ViewBag.Genres)
+                {
+                    <option value="@genre.GenreID">@genre.GenreName</option>
+                }
+            </select>
+        </div*@
+    <p></p>
+    <div>
+        <label>Email Id:</label> <input type="text" name="EmailID" />
+    </div>
+    <p></p>
+    <div>
+        <label>Phone:</label> <input type="number" name="Phone" />
+    </div>
+    <p></p>
+    <div>
+        <label>Username:</label> <input type="text" name="UserName" />
+    </div>
+    <p></p>
+    <div>
+        <label>Password:</label> <input type="text" name="Password" />
+    </div>
+    <p></p>
+    <div>
+        <input type="submit" class="btn btn-primary" value="Add User" />
+    </div>
+</form>
