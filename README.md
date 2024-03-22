@@ -1,6 +1,6 @@
 # BookSwap Website
 
-This is the README for the BookSwap App project.
+This is the README for the BookSwap Website project.
 
 ## Overview
 
